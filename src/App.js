@@ -1,9 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+// import FigureComponent from "./FigureComponent";
+// import FileUploadComponent from "./FileUploadComponent";
+import imageDataURLContext from "./utils/imageDataURLContext";
+import { useState, lazy, Suspense } from "react";
+
+const FileUploadComponent = lazy(() => import("./FileUploadComponent"));
+const FigureComponent = lazy(() => import("./FigureComponent"));
 
 function App() {
+  const [imgUrl, setImgUrl] = useState();
   return (
     <div className="App">
+      <Suspense fallback={<div>Loading...</div>}>
+        <FileUploadComponent setImgUrl={setImgUrl} />
+        <br></br>
+        <FigureComponent imgUrl={imgUrl} />
+      </Suspense>
+
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
